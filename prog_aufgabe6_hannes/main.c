@@ -29,43 +29,35 @@ int countChars(char* path);
 int countOccurences(char* path);
 
 int main(int argc, char** argv) {
-    //    char parameters[10] = "";
-    //    for (int i = 1; i < (argc - 1); i++) {
-    //        char* paramPos = strchr(argv[i], '-') + 1;
-    //        if (paramPos != NULL) {
-    //            strcat(parameters, paramPos);
-    //        } else {
-    //            printf("%s", "unknown argument");
-    //        }
-    //    }
-    //    printf("%s", parameters);
+    char parameters[10] = "";
+    for (int i = 1; i < (argc - 1); i++) {
+        char* paramPos = strchr(argv[i], '-') + 1;
+        if (paramPos != NULL) {
+            strcat(parameters, paramPos);
+        } else {
+            printf("%s", "unknown argument");
+        }
+    }
 
     ct.wordcount = 0;
     ct.charcount = 0;
     ct.linecount = 0;
 
     countOccurences(argv[argc - 1]);
-    printf("Line Count: %d, Word Count: %d, Char Count: %d\n", ct.linecount, ct.wordcount, ct.charcount);
 
-    //    printf("%s,%s,%s", parameters[0], parameters[1], parameters[2]);
-
-
-    //    char parameters[3][4];
-    //    for (int i = 1; i < (argc - 1); i++) {
-    //        char* paramPos = strchr(argv[i], '-') + 1;
-    //        if (paramPos != NULL) {
-    //            strcpy(parameters[i - 1], paramPos);
-    //        }
-    //    }
-    //    printf("%s,%s,%s",parameters[0],parameters[1],parameters[2]);
-    //    char parameters[2][3];
-    //    char* pos1 = "xd";
-    //    char* pos2 = "oo";
-    //    strcpy(parameters[1],pos1);
-    //    strcpy(parameters[2],pos2);
-    //    
-    //    printf("%s%s",parameters[1],parameters[2]);
-
+    char words = 'w';
+    char lines = 'l';
+    char chars = 'c';
+    if (strchr(parameters,words)){
+        printf("Wordcounter: %d ",ct.wordcount);
+    }
+    if (strchr(parameters,lines)){
+        printf("Linecounter: %d ",ct.linecount);
+    }
+    if (strchr(parameters,chars)){
+        printf("Charcounter: %d",ct.charcount);
+    }
+    printf("\n");
     return (EXIT_SUCCESS);
 
 
@@ -99,16 +91,3 @@ int countOccurences(char* path) {
     fclose(file);
     return 0;
 }
-//
-//int main(int argc, char** argv) {
-//    if (argc > 2) {
-//        argv[argc + 2] = argv[4];
-//        argumentHandler(argv[1]);
-//    }
-//    for (int i = 0; i < argc; i++) {
-//        printf("%i, %s\n", argc, argv[i]);
-//    }
-//
-//    printf("Line Count: %d, Word Count: %d, Char Count: %d\n", countLines(argv[1]), countWords(argv[1]), countChars(argv[1]));
-//    return (EXIT_SUCCESS);
-//}
