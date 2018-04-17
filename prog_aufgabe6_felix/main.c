@@ -20,29 +20,53 @@
 int countWords(char* path);
 int countLines(char* path);
 int countChars(char* path);
+
 int main(int argc, char** argv) {
+    char parameters[5] = ""; //fünf Plätze für Argumente
+    for (int i = 1; i < (argc - 1); i++) {
+        char* paramPos = strchr(argv[i], '-') + 1; 
+        if (paramPos != NULL) {
+            strcat(parameters, paramPos);
+        } else {
+            printf("%s", "unknown argument");
+        }
+    }
+
     
 //    for(int i= 0; i < argc; i++){
 //        printf("%i, %s\n", argc, argv[i]);
 //    }
+    char wordCount = 'w';
+    char lineCount = 'l';
+    char charCount = 'c';
+    if (strchr(parameters,wordCount)){
+        printf("Words: %d\n",countWords(argv[argc - 1])); //Aufruf countWords wenn Parameter = w
+    }
+    if (strchr(parameters,lineCount)){
+        printf("Lines: %d\n",countLines(argv[argc - 1])); //Aufruf countLines wenn Parameter = l
+    }
+    if (strchr(parameters,charCount)){
+        printf("Chars: %d\n",countChars(argv[argc - 1])); //Aufruf countChars wenn Parameter = c (=countBytes)
+    } else {
+        printf("Line Count: %d, Word Count: %d, Char Count: %d\n", countLines(argv[argc - 1]), countWords(argv[argc - 1]), countChars(argv[argc - 1]));
+    }
     
-    printf("Line Count: %d, Word Count: %d, Char Count: %d\n", countLines(argv[1]), countWords(argv[1]), countChars(argv[1]));
     return (EXIT_SUCCESS);
 }
 
-int countWords(char* path) {
+int countWords(char* path) { //zählt wörter in file
     FILE* file;
     file = fopen(path, "r");
     int count = 0;
     char i = 1;
-    char prev = 'ö';
+    char prev = 'q'; //setze einen prev char der verhindert dass doppelte Leerzeichen usw. gezählt werden
     if (file == NULL) {
         printf("File not found\n");
     }
     while ((i = fgetc(file)) != EOF) {
-        if (i == ' ' || i == '\n'  && prev != '\n' && prev != ' ' && prev != '\t' && prev != '\r')
+        if (i == ' ' || i == '\n'  && prev != '\n' && prev != ' ' && prev != '\t' && prev != '\r') //Bedingungen um Wörter zu erkennen
             count++;
-        prev = i;
+        prev = i; // setze prev char auf den Wert des aktuellen Chars.
     }
     return count;
     
@@ -50,7 +74,7 @@ int countWords(char* path) {
 
 }
 
-int countChars(char* path) {
+int countChars(char* path) { //Zählt chars/bytes in file
     FILE* file;
     file = fopen(path, "r");
     int count = 0;
@@ -65,7 +89,7 @@ int countChars(char* path) {
     fclose(file);
 }
 
-int countLines(char* path) {
+int countLines(char* path) { //zählt lines in file
     FILE* file;
     file = fopen(path, "r");
     int count = 0;
@@ -74,7 +98,7 @@ int countLines(char* path) {
         printf("File not found\n");
     }
     while ((i = fgetc(file)) != EOF) {
-        if (i == '\n') {
+        if (i == '\n') { 
             count++;
         }
     }

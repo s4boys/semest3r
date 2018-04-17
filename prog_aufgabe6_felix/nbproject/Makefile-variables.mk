@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-MacOSX
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
-CND_ARTIFACT_NAME_Debug=aufgabe6
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/aufgabe6
+CND_ARTIFACT_NAME_Debug=prog_aufgabe6_felix
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/prog_aufgabe6_felix
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
-CND_PACKAGE_NAME_Debug=aufgabe6.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/aufgabe6.tar
+CND_PACKAGE_NAME_Debug=progaufgabe6felix.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/progaufgabe6felix.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-MacOSX
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
-CND_ARTIFACT_NAME_Release=aufgabe6
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/aufgabe6
+CND_ARTIFACT_NAME_Release=prog_aufgabe6_felix
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/prog_aufgabe6_felix
 CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
-CND_PACKAGE_NAME_Release=aufgabe6.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/aufgabe6.tar
+CND_PACKAGE_NAME_Release=progaufgabe6felix.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/progaufgabe6felix.tar
 #
 # include compiler specific variables
 #
