@@ -14,12 +14,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#define MAXLINELENGTH 1024
 
-struct counter {
-    int wordcount;
-    int linecount;
-    int charcount;
-}ct;
+typedef struct flags{
+    char wflag;
+    char lflag;
+    char cflag;
+}flags;
+
+
 /*
  * 
  */
@@ -40,13 +44,6 @@ int main(int argc, char** argv) {
 //    }
 //    printf("%s", parameters);
 
-    ct.wordcount = 0;
-    ct.charcount = 0;
-    ct.linecount = 0;
-
-    countOccurences(argv[argc]);
-    printf("Line Count: %d, Word Count: %d, Char Count: %d\n", ct.linecount, ct.wordcount, ct.charcount);
-
             //    printf("%s,%s,%s", parameters[0], parameters[1], parameters[2]);
 
 
@@ -66,6 +63,41 @@ int main(int argc, char** argv) {
             //    
             //    printf("%s%s",parameters[1],parameters[2]);
 
+
+    int opt;
+
+    flags myflags = {0,0,0};
+
+    while((opt = getopt(argc, argv, "lcw")) != -1){
+
+        switch(opt){
+            case 'w': myflags.wflag++;break;
+            case 'l': myflags.lflag++;break;
+            case 'c': myflags.cflag++;break;
+        }
+    }
+
+
+    while(optind < argc){
+        printf("%s: ", argv[optind]);
+        if(myflags.wflag){
+            int wcount = countWords(argv[optind]);
+            printf("%d Words ", wcount);
+        }
+
+        if(myflags.lflag){
+            int lcount = countWords(argv[optind]);
+            printf("%d Lines ", lcount);
+        }
+
+        if(myflags.cflag){
+            int ccount = countWords(argv[optind]);
+            printf("%d Characters ", ccount);
+        }
+        printf("\n");
+
+    }
+
     return (EXIT_SUCCESS);
 
 
@@ -84,48 +116,56 @@ int main(int argc, char** argv) {
 //    return (EXIT_SUCCESS);
 //}
 
-int countOccurences(char* path) {
-    FILE* file;
-    file = fopen(path, "r");
-    char singleChar;
-    char previous = 'o';
-    if (file == NULL) {
-        fprintf(stdout, "%s", "File not found\n");
-    }
-    const char *wordSeparators = "\n\t ";
-    const char *lineSeparators = "\n";
-    while ((singleChar = fgetc(file)) != EOF) {
-        if (strchr(wordSeparators, singleChar & !(strchr(wordSeparators, previous)))) {
-            ct.wordcount++;
-            previous = singleChar;
-        }
-        if (strchr(lineSeparators, singleChar)) {
-            ct.linecount++;
-        }
-        ct.charcount++;
-    }
-    fclose(file);
-    return 0;
-}
+// int countOccurences(char* path) {
+//     FILE* file;
+//     file = fopen(path, "r");
+//     char singleChar;
+//     char previous = 'o';
+//     if (file == NULL) {
+//         fprintf(stdout, "%s", "File not found\n");
+//     }
+//     const char *wordSeparators = "\n\t ";
+//     const char *lineSeparators = "\n";
+//     while ((singleChar = fgetc(file)) != EOF) {
+//         if (strchr(wordSeparators, singleChar & !(strchr(wordSeparators, previous)))) {
+//             ct.wordcount++;
+//             previous = singleChar;
+//         }
+//         if (strchr(lineSeparators, singleChar)) {
+//             ct.linecount++;
+//         }
+//         ct.charcount++;
+//     }
+//     fclose(file);
+//     return 0;
+// }
 
 int countWords(char* path) {
     FILE* file;
     file = fopen(path, "r");
-    int counter = 0;
-    char singleChar = 0;
-    char prev = 'a';
-    if (file == NULL) {
-        printf("File not found\n");
-    }
-    while ((singleChar = fgetc(file)) != EOF) {
-        if (singleChar == ' ' && prev != '\n')
-            counter++;
-        prev = singleChar;
-    }
-    return counter;
+    
+
+    char delimiters[] =  " ,.;\n\r\t";
+    char *wordpointer;
+    int counter;
+
+
+    char string[MAXLINELENGTH];
+    
+    do{
+        wordpointer = fgets(string, MAXLINELENGTH, file);
+
+        if(wordpointer!=NULL){
+            wordpointer = strtok(string, delimiters);
+            while(wordpointer!=NULL){
+                counter++;
+                wordpointer = strtok(NULL, delimiters);
+            }
+        }
+    }while(wordpointer!= NULL);
 
     fclose(file);
-
+    return counter;
 }
 
 int countChars(char* path) {
