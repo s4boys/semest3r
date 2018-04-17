@@ -19,7 +19,7 @@ struct counter {
     int wordcount;
     int linecount;
     int charcount;
-}ct;
+} ct;
 /*
  * 
  */
@@ -29,46 +29,75 @@ int countChars(char* path);
 int countOccurences(char* path);
 
 int main(int argc, char** argv) {
-//    char parameters[10] = "";
-//    for (int i = 1; i < (argc - 1); i++) {
-//        char* paramPos = strchr(argv[i], '-') + 1;
-//        if (paramPos != NULL) {
-//            strcat(parameters, paramPos);
-//        } else {
-//            printf("%s", "unknown argument");
-//        }
-//    }
-//    printf("%s", parameters);
+    //    char parameters[10] = "";
+    //    for (int i = 1; i < (argc - 1); i++) {
+    //        char* paramPos = strchr(argv[i], '-') + 1;
+    //        if (paramPos != NULL) {
+    //            strcat(parameters, paramPos);
+    //        } else {
+    //            printf("%s", "unknown argument");
+    //        }
+    //    }
+    //    printf("%s", parameters);
 
     ct.wordcount = 0;
     ct.charcount = 0;
     ct.linecount = 0;
 
-    countOccurences(argv[argc]);
+    countOccurences(argv[argc - 1]);
     printf("Line Count: %d, Word Count: %d, Char Count: %d\n", ct.linecount, ct.wordcount, ct.charcount);
 
-            //    printf("%s,%s,%s", parameters[0], parameters[1], parameters[2]);
+    //    printf("%s,%s,%s", parameters[0], parameters[1], parameters[2]);
 
 
-            //    char parameters[3][4];
-            //    for (int i = 1; i < (argc - 1); i++) {
-            //        char* paramPos = strchr(argv[i], '-') + 1;
-            //        if (paramPos != NULL) {
-            //            strcpy(parameters[i - 1], paramPos);
-            //        }
-            //    }
-            //    printf("%s,%s,%s",parameters[0],parameters[1],parameters[2]);
-            //    char parameters[2][3];
-            //    char* pos1 = "xd";
-            //    char* pos2 = "oo";
-            //    strcpy(parameters[1],pos1);
-            //    strcpy(parameters[2],pos2);
-            //    
-            //    printf("%s%s",parameters[1],parameters[2]);
+    //    char parameters[3][4];
+    //    for (int i = 1; i < (argc - 1); i++) {
+    //        char* paramPos = strchr(argv[i], '-') + 1;
+    //        if (paramPos != NULL) {
+    //            strcpy(parameters[i - 1], paramPos);
+    //        }
+    //    }
+    //    printf("%s,%s,%s",parameters[0],parameters[1],parameters[2]);
+    //    char parameters[2][3];
+    //    char* pos1 = "xd";
+    //    char* pos2 = "oo";
+    //    strcpy(parameters[1],pos1);
+    //    strcpy(parameters[2],pos2);
+    //    
+    //    printf("%s%s",parameters[1],parameters[2]);
 
     return (EXIT_SUCCESS);
 
 
+}
+
+int countOccurences(char* path) {
+    FILE* file;
+    file = fopen(path, "r");
+    char singleChar = 0;
+    int whitespace = 1;
+    if (file == NULL) {
+        fprintf(stdout, "%s", "File not found\n");
+    }
+    char *wordSeparators = "\n\t ";
+    char *lineSeparators = "\n";
+    while ((singleChar = fgetc(file)) != EOF) {
+        //        if (strchr(wordSeparators, singleChar) && (!(strchr(wordSeparators, previous)))){
+        if (strchr(wordSeparators, singleChar) && whitespace) {
+            ct.wordcount++;
+            whitespace = 0;
+        }
+        if (strchr(lineSeparators, singleChar)) {
+            ct.linecount++;
+        }
+        if (!strchr(wordSeparators, singleChar)) {
+            whitespace = 1;
+        }
+        ct.charcount++;
+
+    }
+    fclose(file);
+    return 0;
 }
 //
 //int main(int argc, char** argv) {
@@ -83,80 +112,3 @@ int main(int argc, char** argv) {
 //    printf("Line Count: %d, Word Count: %d, Char Count: %d\n", countLines(argv[1]), countWords(argv[1]), countChars(argv[1]));
 //    return (EXIT_SUCCESS);
 //}
-
-int countOccurences(char* path) {
-    FILE* file;
-    file = fopen(path, "r");
-    char singleChar;
-    char previous = 'o';
-    if (file == NULL) {
-        fprintf(stdout, "%s", "File not found\n");
-    }
-    const char *wordSeparators = "\n\t ";
-    const char *lineSeparators = "\n";
-    while ((singleChar = fgetc(file)) != EOF) {
-        if (strchr(wordSeparators, singleChar & !(strchr(wordSeparators, previous)))) {
-            ct.wordcount++;
-            previous = singleChar;
-        }
-        if (strchr(lineSeparators, singleChar)) {
-            ct.linecount++;
-        }
-        ct.charcount++;
-    }
-    fclose(file);
-    return 0;
-}
-
-int countWords(char* path) {
-    FILE* file;
-    file = fopen(path, "r");
-    int counter = 0;
-    char singleChar = 0;
-    char prev = 'a';
-    if (file == NULL) {
-        printf("File not found\n");
-    }
-    while ((singleChar = fgetc(file)) != EOF) {
-        if (singleChar == ' ' && prev != '\n')
-            counter++;
-        prev = singleChar;
-    }
-    return counter;
-
-    fclose(file);
-
-}
-
-int countChars(char* path) {
-    FILE* file;
-    file = fopen(path, "r");
-    int count = 0;
-    char i;
-    if (file == NULL) {
-        printf("File not found\n");
-    }
-    while ((i = fgetc(file)) != EOF) {
-        count++;
-    }
-    return count;
-    fclose(file);
-}
-
-int countLines(char* path) {
-    FILE* file;
-    file = fopen(path, "r");
-    int count = 0;
-    char i = 0;
-    if (file == NULL) {
-        printf("File not found\n");
-    }
-    while ((i = fgetc(file)) != EOF) {
-        if (i == '\n') {
-            count++;
-        }
-    }
-    return count;
-    fclose(file);
-}
-
