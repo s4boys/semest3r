@@ -1,0 +1,9 @@
+Gruppenmitglieder: Nicolas Mohr, Daniel Hirsch
+
+1. Eingebettete Systeme sind/können echtzeitfähig sein, laufen unbeaufsichtigt/selbständig, haben einen niedrigeren Stromverbrauch, sind kleiner, haben weniger Rechenleistung als ein PC und besitzen Hardware-Schnittstellen. Sie sind darüber hinaus günstiger.
+
+2. Atmel Studio, Arduino DIE, Eclipse mit Plugins, PlatformIO
+
+3. Nein, da 8-Bit Controller ohne Betriebssystem arbeiten.
+
+4. Es gibt 3 Arten von Speicher: ROM, RAM, Prozessor-Register und I/O Register. Er hat 32 KB Flashspeicher und besitzt 32 8-Bit Register
