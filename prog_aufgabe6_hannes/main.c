@@ -29,22 +29,23 @@ int countChars(char* path);
 int countOccurences(char* path);
 
 int main(int argc, char** argv) {
-    char parameters[10] = "";
-    for (int i = 1; i < (argc - 1); i++) {
-        char* paramPos = strchr(argv[i], '-') + 1;
-        if (paramPos != NULL) {
-            strcat(parameters, paramPos);
+    char parameters[10] = ""; // 10 plätze für übergebene Argumente
+    for (int i = 1; i < (argc - 1); i++) { // zählt vom 2 bis vorletzen Arg. (Name und File nicht)
+        char* paramPos = strchr(argv[i], '-') + 1; //paramPos ist Zeiger auf zeichen '-' in argv[i], +1 weil mich '-' nicht interessiert
+        if (paramPos != NULL) { // wenn nicht gefunden ist zeiger null
+            strcat(parameters, paramPos); // hänge mein zeichen nach '-' an parameters
         } else {
             printf("%s", "unknown argument");
         }
     }
-
+    // Struktur mit 0 initialisiert
     ct.wordcount = 0;
     ct.charcount = 0;
     ct.linecount = 0;
-
+    // Zaehle alle auftreten
     countOccurences(argv[argc - 1]);
 
+    // wenn jeweiliger Buchstabe in parameter vorhanden ist -> drucke counter
     char words = 'w';
     char lines = 'l';
     char chars = 'c';
@@ -66,23 +67,23 @@ int main(int argc, char** argv) {
 int countOccurences(char* path) {
     FILE* file;
     file = fopen(path, "r");
-    char singleChar = 0;
-    int whitespace = 1;
+    char singleChar = 0; //einzelner gelesener Char
+    int whitespace = 1; // whitespace "boolean" 1 heißt für mich letztes Zeichen kein whitespace
     if (file == NULL) {
         fprintf(stdout, "%s", "File not found\n");
     }
-    char *wordSeparators = "\n\t ";
-    char *lineSeparators = "\n";
-    while ((singleChar = fgetc(file)) != EOF) {
-        //        if (strchr(wordSeparators, singleChar) && (!(strchr(wordSeparators, previous)))){
-        if (strchr(wordSeparators, singleChar) && whitespace) {
+    char *wordSeparators = "\n\t "; //String mit Zeichen die whitespace bedeuten
+    char *lineSeparators = "\n"; // String nur für Zeilenumbruch
+    while ((singleChar = fgetc(file)) != EOF) { // lese char aus file solange kein fileende
+        if (strchr(wordSeparators, singleChar) && whitespace) { // wenn singleChar in wordSeparators 
+        //drinsteht && letztes Zeichen kein Whitespace
             ct.wordcount++;
-            whitespace = 0;
+            whitespace = 0; // letztes Zeichen war whitespace
         }
-        if (strchr(lineSeparators, singleChar)) {
+        if (strchr(lineSeparators, singleChar)) { // wie zuvor
             ct.linecount++;
         }
-        if (!strchr(wordSeparators, singleChar)) {
+        if (!strchr(wordSeparators, singleChar)) { // wie zuvor
             whitespace = 1;
         }
         ct.charcount++;
