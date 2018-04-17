@@ -9,16 +9,16 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-MacOSX
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
-CND_ARTIFACT_NAME_Debug=aufgabe_6
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/aufgabe_6
+CND_ARTIFACT_NAME_Debug=aufgabe6
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/aufgabe6
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
 CND_PACKAGE_NAME_Debug=aufgabe6.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/aufgabe6.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-MacOSX
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
-CND_ARTIFACT_NAME_Release=aufgabe_6
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/aufgabe_6
+CND_ARTIFACT_NAME_Release=aufgabe6
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/aufgabe6
 CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
 CND_PACKAGE_NAME_Release=aufgabe6.tar
 CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/aufgabe6.tar
