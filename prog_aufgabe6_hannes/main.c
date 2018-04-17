@@ -86,15 +86,16 @@ int main(int argc, char** argv) {
         }
 
         if(myflags.lflag){
-            int lcount = countWords(argv[optind]);
+            int lcount = countLines(argv[optind]);
             printf("%d Lines ", lcount);
         }
 
         if(myflags.cflag){
-            int ccount = countWords(argv[optind]);
+            int ccount = countChars(argv[optind]);
             printf("%d Characters ", ccount);
         }
         printf("\n");
+        optind++;
 
     }
 
@@ -147,7 +148,7 @@ int countWords(char* path) {
 
     char delimiters[] =  " ,.;\n\r\t";
     char *wordpointer;
-    int counter;
+    int counter=0;
 
 
     char string[MAXLINELENGTH];
@@ -156,10 +157,11 @@ int countWords(char* path) {
         wordpointer = fgets(string, MAXLINELENGTH, file);
 
         if(wordpointer!=NULL){
-            wordpointer = strtok(string, delimiters);
-            while(wordpointer!=NULL){
+            char *tokenfound;
+            tokenfound = strtok(string, delimiters);
+            while(tokenfound!=NULL){
                 counter++;
-                wordpointer = strtok(NULL, delimiters);
+                tokenfound = strtok(NULL, delimiters);
             }
         }
     }while(wordpointer!= NULL);
