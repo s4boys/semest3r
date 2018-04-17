@@ -21,7 +21,14 @@ int countWords(char* path);
 int countLines(char* path);
 int countChars(char* path);
 int main(int argc, char** argv) {
-
+    if(argc > 2){
+        argv[argc+2] = argv[4];
+        argumentHandler(argv[1]);
+    }
+    for(int i= 0; i < argc; i++){
+        printf("%i, %s\n", argc, argv[i]);
+    }
+    
     printf("Line Count: %d, Word Count: %d, Char Count: %d\n", countLines(argv[1]), countWords(argv[1]), countChars(argv[1]));
     return (EXIT_SUCCESS);
 }
@@ -78,3 +85,15 @@ int countLines(char* path) {
     fclose(file);
 }
 
+
+
+int argumentHandler(char** argv){
+    if(argv[1] == "-c" || argv[2] == "-c" || argv[3] == "-c")
+        return countChars(argv[4]);
+    else if(argv[1] == "-l" || argv[2] == "-l" || argv[3] == "-l")
+        return countLines(argv[4]);
+    else if (argv[1] == "-w" || argv[2] == "-w" || argv[3] == "-w")
+        return countWords(argv[4]);
+    
+    
+}
