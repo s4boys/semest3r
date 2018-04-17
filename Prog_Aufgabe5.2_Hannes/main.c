@@ -71,8 +71,8 @@ float substract(float *a, float *b) {
     int aShift = expoa - 127;
     int bShift = expob - 127;
     // verschiebe mantissen so dass sie * 2⁰ sind
-    manta = shift(manta, (-1) * aShift); // 100000000000000000000000 wird zu 100000000000000000000000, logisch ist 1
-    mantb = shift(mantb, (-1) * bShift); // 100000000000000000000000 wird zu 10000000000000000000000000, unlogisch
+    manta = shift(manta, (-1) * aShift); // * (-1) da die shift methode für den Rückweg ausgelegt wurde
+    mantb = shift(mantb, (-1) * bShift); // 
     uint32_t ergebnis = 0;
 
     //bestimme Vorzeichen des Ergebnisses
@@ -124,130 +124,45 @@ int shift(uint32_t mantisse, int shiftFactor){
     }
 }
 
-float add(float *a, float *b) {
-    uint32_t ia = *(unsigned int *) a; // 1069547520 = 00111111110000000000000000000000
-    uint32_t ib = *(unsigned int *) b;
+float divide(float *a, float *b){
+    uint32_t ia = *(unsigned int *)a;
+    uint32_t ib = *(unsigned int *)b;
     uint32_t result = 0;
-    int signa, signb, signr;
-    int manta, mantb, mantr;
-    int expoa, expob, expor;
-    SPLIT(ia, signa, manta, expoa); //manta 110000000000000000000000 24 bit 1,1 passt
-    SPLIT(ib, signb, mantb, expob); //mantb 100110011001100110011010 24 bit
+    uint32_t signa, signb, signr;
+    uint64_t manta, mantb, mantr;
+    uint32_t expoa, expob, expor;
+
+    SPLIT(ia, signa, manta, expoa);
+    SPLIT(ib, signb, mantb, expob);
     // Berechnen Sie hier signr mantr und expor!
-    if ((signa == 0) & (manta == 0) & (expoa == 0)) { // falls Operant A = 0
-        signr = signb;
-        mantr = mantb;
-        expor = expob;
-        BUILD(result, signr, mantr, expor);
-        return *(float *) &result;
+    if(isZero(manta, signa, expoa)){
+        signr = 0;
+        mantr = 0;
+        expor = 0;
     }
-    if ((signb == 0) & (mantb == 0) & (expob == 0)) { // falls Operant B = 0
-        signr = signa;
-        mantr = manta;
-        expor = expoa;
-        BUILD(result, signr, mantr, expor);
-        return *(float *) &result;
-    }
-
-    int aShift = expoa - 127;
-    int bShift = expob - 127;
-    // verschiebe mantissen so dass sie * 2⁰ sind
-    manta = manta << aShift;
-    mantb = mantb << bShift; // 1001100110011001100110100 eine Null länger, passt
-    uint32_t ergebnis = 0;
-    signr = 0;
-    if (signa == 0 && signb == 0) {
-        ergebnis = manta + mantb; // 1111100110011001100110100
-    }
-    if (signa == 0 && signb == 1) {
-        if (mantb > manta) {
-            signr = 1;
-            ergebnis = mantb - manta;
-        } else {
-            ergebnis = manta - mantb;
-        }
-
-    }
-
-    int i = 31;
-    while ((ergebnis >> i) == 0) {
-        i--; //i ist hier dann 24, bedeutet erste 1 an stelle 24 + 1 = 25, soll an 24 sein
-    }
-    i++; // stelle der ersten 1 ist jetzt i
-    i -= 24; // differenz zur zielstelle, 24 ist versteckte bit stelle
-
-    expor = (127 + i);
-    mantr = (ergebnis >> i); //111110011001100110011010 eine Null weniger
-
+    else{
+        signr = signa^signb; // signr ist 1 wenn einer von beiden inputs 1 ist, sonst 0;
+       mantr = (manta << 23) / mantb; // verschiebe manta 23 bits nach links damit das Ergebnis kein Komma enthält
+       // welches nur durch int abgeschnitten werden würde
+        expor = (expoa - expob +127);
+    }    
     BUILD(result, signr, mantr, expor);
-    return *(float *) &result;
+    return *(float *)&result;
 }
-
-float divide(float *a, float*b) {
-    uint32_t ia = *(unsigned int *) a; // 1069547520 = 00111111110000000000000000000000
-    uint32_t ib = *(unsigned int *) b;
-    uint32_t result = 0;
-    int signa, signb, signr;
-    int manta, mantb, mantr; // a : 100000000000000000000000 -> 0|10000000|0 also passt
-    int expoa, expob, expor; // b : _> 0|01111111|0 passt
-    SPLIT(ia, signa, manta, expoa); //manta 110000000000000000000000 24 bit 1,1 passt
-    SPLIT(ib, signb, mantb, expob); //mantb 100110011001100110011010 24 bit
-    signr = 0;
-    if ((signa ^ signb) == 1) {
-        signr = 1;
-    }
-    //Rechnung
-    if ((mantb == 0x800000) & (expob == 127)) { // falls Operant B = 1
-        mantr = manta;
-        expor = expoa;
-        BUILD(result, signr, mantr, expor);
-        return *(float *) &result;
-    }
-    if ((expoa == expob) & (manta == mantb)) { // vielleicht unnötig, wenn a = b direkt 1
-        expor = 127;
-        mantr = 0x800000;
-        BUILD(result, signr, mantr, expor);
-        return *(float *) &result;
-    }
-    int aShift = expoa - 127;
-    int bShift = expob - 127;
-    // verschiebe mantissen so dass sie * 2⁰ sind
-    uint32_t mantaBits = manta << aShift;
-    uint32_t mantbBits = mantb << bShift;
-    uint32_t ergebnis = 0;
-
-    ergebnis = mantaBits / mantbBits; //dez in bin 10100000000000000000000000 / dez in bin 100000000000000000000000
-
-    int i = 31;
-    while ((ergebnis >> i) == 0) {
-        i--; //i ist hier dann 24, bedeutet erste 1 an stelle 24 + 1 = 25, soll an 24 sein
-    }
-    i++; // stelle der ersten 1 ist jetzt i
-    i -= 24; // differenz zur zielstelle, 24 ist versteckte bit stelle
-
-    expor = (127 + i);
-    mantr = (ergebnis >> i); //111110011001100110011010 eine Null weniger
-
-    BUILD(result, signr, mantr, expor);
-    return *(float *) &result;
+int isZero(int manta, int signa, int expa){
+    return (manta==0) & (signa==0) & (expa==0);
 }
-
-/*
- * 
- */
 
 int main(int argc, char** argv) {
     // Nebenbedingungen im Test: 
     // Die Eingaben sind Zahlen im Bereich [-10.0...10.0]
     // Bei der Division kommt die 0 als Divisor nicht vor!
-    float f =-1;
-    float g =-1;
-//    float addF = add(&f, &g);
+    float f =-127.03125;
+    float g =-0.5;
     float subF = substract(&f, &g);
-//    float divF = divide(&f, &g);
-//    printf("%lf + %lf = %lf\n", f, g, addF);
+    float divF = divide(&f, &g);
     printf("%lf - %lf = %lf\n", f, g, subF);
-//    printf("%lf / %lf = %lf\n", f, g, divF);
+    printf("%lf / %lf = %lf\n", f, g, divF);
     return (EXIT_SUCCESS);
 }
 
