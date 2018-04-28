@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=prog_aufgabe7_daniel
+PROJECTNAME=prog_aufgabe7_hannes
 
 # Active Configuration
 DEFAULTCONF=Debug_WIN32
