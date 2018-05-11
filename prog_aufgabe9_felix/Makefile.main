@@ -1,0 +1,9 @@
+# -*- Makefile -*-
+
+all: main
+
+main: main.o foo.o
+	gcc main.c -o main
+
+main.o: main.c
+	gcc main.c -o main.o
