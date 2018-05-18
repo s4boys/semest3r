@@ -1,0 +1,6 @@
+main.o: main.c
+	gcc -c main.c
+	gcc main.c -o main
+
+main: main.o foo.o
+	gcc main.c -o main

@@ -1,0 +1,2 @@
+foo.o: foo.c
+	gcc -c foo.c
