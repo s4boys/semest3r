@@ -8,11 +8,11 @@ const char *conf="WINDOWS";
 #define _GNU_SOURCE
 #include <dlfcn.h>
 const char *conf="LINUX";
-#else
-#error unknown configuration
-#endif 
+#endif
 
-#if defined(WINDOWS)
+
+
+#ifdef _WIN32
 __declspec(dllexport)
 #endif
 void foo(const char *msg) {

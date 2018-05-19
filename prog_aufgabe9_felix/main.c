@@ -1,7 +1,11 @@
+#include <stdio.h>
+#include "foo.c"
+extern void foo(const char* msg);
 
-extern void foo();
+const char* module= "main.c";
 
 int main(int argc, char** argv) {
-    return (0);
+    foo(module);
+    return(0);
 }
 

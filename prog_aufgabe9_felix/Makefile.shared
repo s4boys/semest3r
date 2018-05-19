@@ -1,2 +1,4 @@
+all: shared.o
+
 shared.o: shared.c
 	gcc -c shared.c
