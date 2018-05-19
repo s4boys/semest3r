@@ -1,6 +1,2 @@
-# -*- Makefile -*-
-
-all: foo.o
-
 foo.o: foo.c
-	gcc foo.c -o foo.o
+	gcc -c foo.c

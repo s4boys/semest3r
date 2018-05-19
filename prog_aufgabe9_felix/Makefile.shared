@@ -1,15 +1,2 @@
-# -*- Makefile -*-
-
-all: shared
-
-shared: shared.o foo.o
-	ifeq ($(CONF), WINDOWS)
-		gcc shared.c -o shared.dll
-	ifeq ($(CONF), LINUX)
-		gcc shared.c -o shared.so
-	else
-		$(error Bitte geben sie ein gültiges System an)
-	endif
-
 shared.o: shared.c
-	gcc shared.o -o shared.c
+	gcc -c shared.c
