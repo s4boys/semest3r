@@ -3,8 +3,7 @@
 #ifdef _WIN32
 #include <windows.h>
 const char *conf="WINDOWS";
-#endif
-#ifdef linux
+#elif defined linux
 #define _GNU_SOURCE
 #include <dlfcn.h>
 const char *conf="LINUX";
