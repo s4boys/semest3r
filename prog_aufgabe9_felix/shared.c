@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <foo.c>
 
 const char* module = "shared";
 
+extern void foo(const char *msg);
 
-void init(){
-foo(module) __attribute__((constructor));
-
+__attribute__((constructor)) void init() {
+    foo("shared");
 }

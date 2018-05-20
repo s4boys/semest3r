@@ -2,14 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const char *conf;
 #ifdef _WIN32
-conf ="WINDOWS";
+const char *conf ="WINDOWS";
 #else
-conf ="LINUX";
+const char *conf ="LINUX";
 #endif
 
 void foo(const char *msg) {
-	printf("In foo, configuration %s, module %s, from %s, conf, msg);
+	printf("In foo, configuration %s, module %s, from %s \n", conf, "bananas", msg);
 }
-

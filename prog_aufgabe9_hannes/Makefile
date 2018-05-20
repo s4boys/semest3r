@@ -15,6 +15,9 @@ else
  endif
 endif
 clean:
+	ifeq "$(findstring Windows,$(OS))" "Windows"
+
+	else
 	rm *.o main
 clear:
 	rm *.o main

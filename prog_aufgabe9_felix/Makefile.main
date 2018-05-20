@@ -2,8 +2,8 @@
 
 all: main
 
-main: main.o foo.o
-	gcc main.c -o main
+clean:
+	rm -f main
 
-main.o: main.c
-	gcc main.c -o main.o
+main: main.c
+	gcc main.c -Llib -lshared -o main

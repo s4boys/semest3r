@@ -1,15 +1,23 @@
-# -*- Makefile -*-
+ifeq "$(findstring Windows, $(OS))" "Windows"
+DYNLIB := lib/libshared.dll
+else # UNIX/Linux
+DYNLIB := lib/libshared.so
+endif
 
-all: shared
+CFLAGS := -fPIC
+objects := foo.o shared.o
 
-shared: shared.o foo.o
-	ifeq ($(CONF), WINDOWS)
-		gcc shared.c -o shared.dll
-	ifeq ($(CONF), LINUX)
-		gcc shared.c -o shared.so
-	else
-		$(error Bitte geben sie ein gültiges System an)
-	endif
+.c.o:
+	gcc -c -fPIC $<
 
-shared.o: shared.c
-	gcc shared.o -o shared.c
+all: $(DYNLIB) install
+
+clean:
+	rm -f $(objects) $(DYNLIB)
+
+install: $(DYNLIB)
+	sudo cp $(DYNLIB) /lib 
+
+
+$(DYNLIB): $(objects)
+	gcc -shared -o $(DYNLIB) $(objects)
