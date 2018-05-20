@@ -1,16 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <dlfcn.h>
+//#include <dlfcn.h>
 
-char* module= "shared.c";
+//const char* module= "shared.c";
+
+extern void foo(const char* c);
 
 __attribute__((constructor))
 void init() 
 {
-    void *handle;
+	char* module = "shared.c";
+	foo(module);
+    /*void *handle;
     int (*function)(char*);
     handle = dlopen(NULL,RTLD_LAZY);
     function = dlsym(handle,"foo");
     (*function)(module);
-    dlclose(handle);
+    dlclose(handle);*/
 }

@@ -1,8 +1,13 @@
-all: main.o main.exe
+all: main.o main
 
 main.o: main.c
 	gcc -c main.c
-	gcc main.c -o main.o
 
-main.exe: main.o foo.o
-	gcc main.c -o main.exe
+main.exe: main.o shared.dll
+ifeq (${CONF},WINDOWS)
+	gcc -o main.exe main.c -L. -lshared
+endif
+main: main.c libshared.so
+ifeq (${CONF},LINUX)
+	gcc -o main main.c -L. -lshared
+endif

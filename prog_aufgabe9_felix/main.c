@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "foo.c"
+//#include "foo.c"
 /*
 #ifdef _WIN32
 #include "shared.dll"

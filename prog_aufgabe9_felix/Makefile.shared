@@ -1,10 +1,10 @@
-all: 
+all: foo.c shared.c
+	gcc -fPIC -c shared.c
+	gcc -fPIC -c foo.c
 ifeq (${CONF},LINUX)
-	gcc -fPIC -Wall -g -c shared.c
-	gcc -shared -o shared.so shared.o
+	gcc -shared -o libshared.so shared.o foo.o
 else
  ifeq (${CONF},WINDOWS)
-	
-	gcc -shared -o shared.dll shared.c
+	gcc -shared -o shared.dll shared.o foo.o
  endif
 endif
