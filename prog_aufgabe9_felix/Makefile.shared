@@ -1,4 +1,15 @@
 all: shared.o
+    
+    
 
 shared.o: shared.c
 	gcc -c shared.c
+
+
+ifeq (${CONF},LINUX)
+	gcc -shared -o shared.so shared.c
+else
+ ifeq (${CONF},WINDOWS)
+	gcc -shared -o shared.dll shared.c
+ endif
+endif
