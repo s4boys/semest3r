@@ -17,10 +17,10 @@ endif
 
 
 clean:
-	rm *.o main.exe *.dll *.so
+	rm *.o main main.exe *.dll *.so
 clear:
-	rm *.o main.exe *.dll *.so
+	rm *.o main main.exe *.dll *.so
 cl:
-	rm *.o main.exe *.dll *.so
+	rm *.o main main.exe *.dll *.so
 
 test: all

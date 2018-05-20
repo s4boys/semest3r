@@ -1,0 +1,6 @@
+shared.o: shared.c
+ifeq(${CONF},LINUX)
+	gcc shared.c -o shared.so
+else
+	gcc shared.c -o shared.dll
+endif

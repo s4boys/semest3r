@@ -1,7 +1,4 @@
 all: 
-
-
-
 ifeq (${CONF},LINUX)
 	gcc -fPIC -Wall -g -c shared.c
 	gcc -shared -o shared.so shared.o
