@@ -3,5 +3,5 @@ all: main.o main.exe
 main.o: main.c
 	gcc -c main.c
 	
-main.exe: main.o shared.dll	
+main.exe: main.o
 	gcc -o main.exe main.c -L. -lshared
