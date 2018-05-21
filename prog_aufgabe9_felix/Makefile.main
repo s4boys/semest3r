@@ -4,14 +4,4 @@ main.o: main.c
 	gcc -c main.c
 	
 main.exe: main.o shared.dll	
-ifeq (${CONF},WINDOWS)
-
 	gcc -o main.exe main.c -L. -lshared
-
-else
-main.exe: main.c libshared.so
-ifeq (${CONF},LINUX)
-
-	gcc -o main.exe main.c -L. -lshared
-endif
-endif
