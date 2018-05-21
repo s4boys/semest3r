@@ -1,5 +1,6 @@
 all:
 ifeq (${CONF},LINUX)
+	export LD_LIBRARY_PATH=.
 	make -f Makefile.foo
 	make -f Makefile.shared CONF=LINUX
 	make -f Makefile.main CONF=LINUX
