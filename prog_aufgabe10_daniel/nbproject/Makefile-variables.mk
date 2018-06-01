@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
-CND_ARTIFACT_NAME_Debug=aufgabe_10
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/aufgabe_10
+CND_ARTIFACT_NAME_Debug=prog_aufgabe10_daniel
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/prog_aufgabe10_daniel
 CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
-CND_PACKAGE_NAME_Debug=aufgabe10.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/aufgabe10.tar
+CND_PACKAGE_NAME_Debug=progaufgabe10daniel.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/progaufgabe10daniel.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
-CND_ARTIFACT_NAME_Release=aufgabe_10
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/aufgabe_10
+CND_ARTIFACT_NAME_Release=prog_aufgabe10_daniel
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/prog_aufgabe10_daniel
 CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
-CND_PACKAGE_NAME_Release=aufgabe10.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/aufgabe10.tar
+CND_PACKAGE_NAME_Release=progaufgabe10daniel.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/progaufgabe10daniel.tar
 #
 # include compiler specific variables
 #
