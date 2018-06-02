@@ -70,7 +70,7 @@ Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbr
         }
         middleFraction.SetCounter(leftFraction.GetCounter() + rightFraction.GetCounter()); // neue mitte
         middleFraction.SetDenominator(leftFraction.GetDenominator() + rightFraction.GetDenominator());
-        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { 
+        if (abs((double) middleFraction - number) < abs((double) resultFraction - number)) { 
             resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
         }
     }
