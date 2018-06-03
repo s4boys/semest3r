@@ -57,7 +57,7 @@ Fraction Fraction::operator/=(const Fraction other) {
     return *this;
 }
 
-Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbrocot die der am Nächsten ist
+Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbrocot die der am nächsten ist
     Fraction leftFraction = (int) number; // bei pi dann 3
     Fraction rightFraction = ((int) number) + 1; // bei pi dann 4
     Fraction middleFraction = Fraction(leftFraction.GetCounter() + rightFraction.GetCounter(),
@@ -71,11 +71,7 @@ Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbr
         }
         middleFraction.SetCounter(leftFraction.GetCounter() + rightFraction.GetCounter()); // neue mitte
         middleFraction.SetDenominator(leftFraction.GetDenominator() + rightFraction.GetDenominator());
-<<<<<<< HEAD
-        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { //fabs läuft auf windows nicht
-=======
-        if (abs((double) middleFraction - number) < abs((double) resultFraction - number)) { 
->>>>>>> 85c5e37dcb64c0d7ecedf6e46041af48ef0818fd
+        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { 
             resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
         }
     }
@@ -89,7 +85,7 @@ bool Fraction::operator==(const Fraction other) const {
     }
     double a = (double) Fraction(counter, denominator);
     double b = (double) other;
-//    return sternBrocot(a) == sternBrocot(b);
+    //    return sternBrocot(a) == sternBrocot(b);
     Fraction sA = sternBrocot(a);
     Fraction sB = sternBrocot(b);
     return (sA.counter == sB.counter && sA.denominator == sB.denominator);
