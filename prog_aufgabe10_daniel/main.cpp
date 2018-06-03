@@ -15,6 +15,7 @@
 #undef NDEBUG
 #include <assert.h>
 #include <stdio.h>
+#include <iostream>
 #include "Fraction.h"
 
 using namespace std;
