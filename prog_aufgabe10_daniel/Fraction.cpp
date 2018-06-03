@@ -12,6 +12,7 @@ Fraction::Fraction(int counter, int denominator) {
 Fraction::Fraction(double value, int maxdenom) {
     this->counter = (int) (value * maxdenom);
     this->denominator = maxdenom;
+    reduce();
 }
 
 Fraction Fraction::operator+(const Fraction other) const {
