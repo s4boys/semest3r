@@ -12,6 +12,7 @@ Fraction::Fraction(int counter, int denominator) {
 Fraction::Fraction(double value, int maxdenom) {
     this->counter = (int) (value * maxdenom);
     this->denominator = maxdenom;
+    reduce();
 }
 
 Fraction Fraction::operator+(const Fraction other) const {
@@ -70,7 +71,11 @@ Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbr
         }
         middleFraction.SetCounter(leftFraction.GetCounter() + rightFraction.GetCounter()); // neue mitte
         middleFraction.SetDenominator(leftFraction.GetDenominator() + rightFraction.GetDenominator());
+<<<<<<< HEAD
         if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { //fabs läuft auf windows nicht
+=======
+        if (abs((double) middleFraction - number) < abs((double) resultFraction - number)) { 
+>>>>>>> 85c5e37dcb64c0d7ecedf6e46041af48ef0818fd
             resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
         }
     }
