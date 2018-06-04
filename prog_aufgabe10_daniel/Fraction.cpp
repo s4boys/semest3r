@@ -124,7 +124,7 @@ std::ostream& operator<<(std::ostream &stream, const Fraction &fract) {
 
 }
 
-std::istream& operator >>(std::istream &stream, Fraction &fract){
+std::istream& operator>>(std::istream &stream, Fraction &fract){
     stream >> fract.counter >> fract.denominator;
     return stream;
 }
