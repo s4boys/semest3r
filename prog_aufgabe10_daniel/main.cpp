@@ -31,14 +31,15 @@ int main(int argc, char** argv)
     Fraction three = 3;
     Fraction pie = 3.1415926;
     Fraction fract2;
+    
     assert(two == Fraction(4,2));
     assert(pie == Fraction(22,7));
     assert((double)(three / two) == 1.5);
-//    cout << pie << endl;
-    cin >> fract2;
-    cout << fract2 << endl;
+    
+    cout << "Pi ist " << pie << endl;
     two /= three;
-    cout << two;
+    cout << "Zwei durch 3 ist " << two << endl;
+    cin >> fract2;
     return 0;
 }
 

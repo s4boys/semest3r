@@ -5,7 +5,11 @@
 Fraction::Fraction(int counter, int denominator) {
     this->counter = counter;
     this->denominator = denominator;
+    if(denominator == 0) {
+       perror("Denominator is undefined"); 
+    } else {
     reduce();
+    }
 }
 
 Fraction::Fraction(double value, int maxdenom) {
@@ -87,10 +91,10 @@ Fraction::operator double() const {
 
 //reduziere Nenner um ggT
 void Fraction::reduce() {
-    int gcdv = gcd(counter, denominator);
+    int ggt = gcd(counter, denominator);
     if (gcd != 0) {
-        counter /= gcdv;
-        denominator /= gcdv;
+        counter /= ggt;
+        denominator /= ggt;
     }
     if (denominator < 0) {
         counter *= -1;
@@ -109,12 +113,28 @@ int Fraction::gcd(int a, int b) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Fraction &fract) {
-    stream << "(" << fract.counter << ", " << fract.denominator << ")";
+    stream << "(" << fract.counter << "," << fract.denominator << ")";
     return stream;
 }
 
 std::istream& operator>>(std::istream &stream, Fraction &fract){
-    stream >> fract.counter >> fract.denominator;
-//    fract.reduce();  ->wenn Input direkt gekürzt sein soll
+    //ignoriere öffnende Klammer und lies Zähler
+    std::cout << "Gib zwei Werte im Stile von \"(i,j)\" ein" << std::endl;
+    stream.ignore(1);
+    stream >> fract.counter;
+    
+    //ignoriere Komma und lies Nenner
+    stream.ignore(1);
+    stream >> fract.denominator;
+    //perror if denominator equals 0
+    if(fract.denominator == 0) {
+       perror("Denominator is undefined");
+    } else {
+        
+    //Ignoriere schließende Klammer
+    stream.ignore(1);
+    fract.reduce();  //->wenn Input direkt gekürzt sein soll
+    std::cout << "Dein Bruch ist äquivalent zu " << fract << std::endl; //Ausgabe
     return stream;
+    }
 }
