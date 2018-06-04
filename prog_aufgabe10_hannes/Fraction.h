@@ -21,7 +21,6 @@ public:
     operator double() const;
     friend ostream& operator <<(ostream &stream, const Fraction &fract);
 //    friend istream& operator >>(istream &stream, Fraction &fract);
-    Fraction sternBrocot(double number, int maxdenom) {}
     int GetCounter() const { return counter; }
     int GetDenominator() const { return denominator; }
     int SetCounter(int ctr) { counter= ctr; }
