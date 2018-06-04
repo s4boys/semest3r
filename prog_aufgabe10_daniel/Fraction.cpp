@@ -12,7 +12,7 @@ Fraction::Fraction(int counter, int denominator) {
 Fraction::Fraction(double value, int maxdenom) {
     this->counter = (int) (value * maxdenom);
     this->denominator = maxdenom;
-    reduce();
+
 }
 
 Fraction Fraction::operator+(const Fraction other) const {
@@ -64,6 +64,9 @@ Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbr
             leftFraction.GetDenominator() + rightFraction.GetDenominator()); //neuer, mittlerer bruch
     Fraction resultFraction = middleFraction;
     while (middleFraction.GetDenominator() < MAX_DEN) { // gewählte grenze
+        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { 
+            resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
+        }
         if ((double) middleFraction > number) { // falls Ziel links von middle ist
             rightFraction = middleFraction; // neuer rechter bruch ist die alte mitte
         } else { // andersherum
@@ -71,9 +74,7 @@ Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbr
         }
         middleFraction.SetCounter(leftFraction.GetCounter() + rightFraction.GetCounter()); // neue mitte
         middleFraction.SetDenominator(leftFraction.GetDenominator() + rightFraction.GetDenominator());
-        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { 
-            resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
-        }
+        
     }
     return resultFraction;
 }
@@ -118,12 +119,12 @@ int Fraction::gcd(int a, int b) {
 
 std::ostream& operator<<(std::ostream &stream, const Fraction &fract) {
 
-    stream << "(" << fract.GetCounter() << "," << fract.GetDenominator() << ")";
+    stream << "(" << fract.counter << ", " << fract.denominator << ")";
     return stream;
 
 }
 
-//std::istream& operator >>(std::istream &stream, Fraction &fract){
-//    stream >> fract.GetCounter() >> fract.GetDenominator();
-//    return stream;
-//}
+std::istream& operator >>(std::istream &stream, Fraction &fract){
+    stream >> fract.counter >> fract.denominator;
+    return stream;
+}

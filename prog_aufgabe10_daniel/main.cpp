@@ -31,8 +31,10 @@ int main(int argc, char** argv)
     Fraction pie = 3.1415926;
     
     assert(two == Fraction(4,2));
-    assert(pie == Fraction(22,7));
+    assert(pie == Fraction(311,99));
     assert((double)(three / two) == 1.5);
+    cout << pie << endl;
+
     return 0;
 }
 
