@@ -57,11 +57,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_daniel.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_hannes.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_daniel.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_hannes.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_daniel ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/prog_aufgabe10_hannes ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Fraction.o: Fraction.cpp
 	${MKDIR} -p ${OBJECTDIR}

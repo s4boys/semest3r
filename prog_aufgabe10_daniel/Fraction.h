@@ -6,7 +6,7 @@
 class Fraction {
 public:
     Fraction(int counter=0, int denominator=1);
-    Fraction(double value, int maxdenom=1000000);
+    Fraction(double value, int maxdenom=100);
     Fraction operator+(const Fraction other) const;
     Fraction operator+=(const Fraction other);
     Fraction operator-(const Fraction other) const;
@@ -16,6 +16,7 @@ public:
     Fraction operator/(const Fraction other) const;
     Fraction operator/=(const Fraction other);
     bool operator==(const Fraction other) const;
+    Fraction sternBrocot(double value, int maxdenom);
     operator double() const;
     friend std::ostream& operator <<(std::ostream &stream, const Fraction &fract);
     friend std::istream& operator >>(std::istream &stream, Fraction &fract);

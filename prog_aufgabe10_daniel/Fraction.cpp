@@ -1,5 +1,4 @@
-#include <cmath>
-#include<iostream>
+#include <iostream>
 #include "Fraction.h"
 #define MAX_DEN 100
 
@@ -10,9 +9,9 @@ Fraction::Fraction(int counter, int denominator) {
 }
 
 Fraction::Fraction(double value, int maxdenom) {
-    this->counter = (int) (value * maxdenom);
-    this->denominator = maxdenom;
-
+    Fraction sB = sternBrocot(value, maxdenom);
+    this->counter =  sB.counter;
+    this->denominator = sB.denominator;
 }
 
 Fraction Fraction::operator+(const Fraction other) const {
@@ -57,45 +56,36 @@ Fraction Fraction::operator/=(const Fraction other) {
     return *this;
 }
 
-Fraction sternBrocot(double number) { // bekommt zahl, sucht Fraction im sternbrocot die der am nächsten ist
-    Fraction leftFraction = (int) number; // bei pi dann 3
-    Fraction rightFraction = ((int) number) + 1; // bei pi dann 4
-    Fraction middleFraction = Fraction(leftFraction.GetCounter() + rightFraction.GetCounter(),
-            leftFraction.GetDenominator() + rightFraction.GetDenominator()); //neuer, mittlerer bruch
-    Fraction resultFraction = middleFraction;
-    while (middleFraction.GetDenominator() < MAX_DEN) { // gewählte grenze
-        if (fabs((double) middleFraction - number) < fabs((double) resultFraction - number)) { 
-            resultFraction = middleFraction;// wenn neue mitte näher an ziel ist als letzes erg
-        }
+/* Finde Zahl die am Nächsten zu Fließkommazahl ist*/
+Fraction Fraction::sternBrocot(double number, int maxdenom){ 
+    Fraction lowerLimit = (int) number; 
+    Fraction upperLimit = ((int) number) + 1; 
+    Fraction middleFraction = Fraction(lowerLimit.counter + upperLimit.counter,
+            lowerLimit.denominator + upperLimit.denominator); //neuer, mittlerer bruch
+    while (middleFraction.denominator < maxdenom) { // Grenze, hier = 100
         if ((double) middleFraction > number) { // falls Ziel links von middle ist
-            rightFraction = middleFraction; // neuer rechter bruch ist die alte mitte
+            upperLimit = middleFraction; // neuer rechter bruch ist die alte mitte
         } else { // andersherum
-            leftFraction = middleFraction;
+            lowerLimit = middleFraction;
         }
-        middleFraction.SetCounter(leftFraction.GetCounter() + rightFraction.GetCounter()); // neue mitte
-        middleFraction.SetDenominator(leftFraction.GetDenominator() + rightFraction.GetDenominator());
-        
+        middleFraction.counter = lowerLimit.counter + upperLimit.counter; // neue mitte
+        middleFraction.denominator = lowerLimit.denominator + upperLimit.denominator;
     }
-    return resultFraction;
+    return upperLimit;
 }
 
 bool Fraction::operator==(const Fraction other) const {
-
-    if (counter == other.counter && denominator == other.denominator) { //wenn brüche == sind direkt true
+    if (counter == other.counter && denominator == other.denominator) { 
         return true;
     }
-    double a = (double) Fraction(counter, denominator);
-    double b = (double) other;
-    //    return sternBrocot(a) == sternBrocot(b);
-    Fraction sA = sternBrocot(a);
-    Fraction sB = sternBrocot(b);
-    return (sA.counter == sB.counter && sA.denominator == sB.denominator);
+    return false;
 }
 
 Fraction::operator double() const {
     return 1.0 * counter / denominator;
 }
 
+//reduziere Nenner um ggT
 void Fraction::reduce() {
     int gcdv = gcd(counter, denominator);
     if (gcd != 0) {
@@ -108,6 +98,7 @@ void Fraction::reduce() {
     }
 }
 
+//finde größten gemeinsamen Teiler
 int Fraction::gcd(int a, int b) {
     while (b != 0) {
         int rest = a % b;
@@ -118,13 +109,12 @@ int Fraction::gcd(int a, int b) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Fraction &fract) {
-
     stream << "(" << fract.counter << ", " << fract.denominator << ")";
     return stream;
-
 }
 
 std::istream& operator>>(std::istream &stream, Fraction &fract){
     stream >> fract.counter >> fract.denominator;
+//    fract.reduce();  ->wenn Input direkt gekürzt sein soll
     return stream;
 }

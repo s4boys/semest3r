@@ -26,16 +26,19 @@ using namespace std;
 int main(int argc, char** argv) 
 
 {
+
     Fraction two = 2;
     Fraction three = 3;
     Fraction pie = 3.1415926;
-    Fraction f2;
+    Fraction fract2;
     assert(two == Fraction(4,2));
-    assert(pie == Fraction(311,99));
+    assert(pie == Fraction(22,7));
     assert((double)(three / two) == 1.5);
 //    cout << pie << endl;
-    cin >> f2;
-    cout << f2 << endl;    
+    cin >> fract2;
+    cout << fract2 << endl;
+    two /= three;
+    cout << two;
     return 0;
 }
 
