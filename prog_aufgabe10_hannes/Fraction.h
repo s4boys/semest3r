@@ -19,9 +19,9 @@ public:
     Fraction operator/=(const Fraction other);
     bool operator==(const Fraction other) const;
     operator double() const;
-    friend ostream& operator <<(ostream &stream, const Fraction &fract);
     Fraction sternBrocot(double valie, int maxdenom);
-//    friend istream& operator >>(istream &stream, Fraction &fract);
+    friend std::ostream& operator <<(std::ostream &stream, const Fraction &fract);
+    friend std::istream& operator >>(std::istream &stream, Fraction &fract);
     int GetCounter() const { return counter; }
     int GetDenominator() const { return denominator; }
     int SetCounter(int ctr) { counter= ctr; }

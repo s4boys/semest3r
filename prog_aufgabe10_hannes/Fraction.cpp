@@ -130,13 +130,11 @@ int Fraction::gcd(int a, int b) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Fraction &fract) {
-
-    stream << "(" << fract.GetCounter() << "," << fract.GetDenominator() << ")";
+    stream << "(" << fract.counter << ", " << fract.denominator << ")";
     return stream;
-
 }
 
-//std::istream& operator >>(std::istream &stream, Fraction &fract){
-//    stream >> fract.GetCounter() >> fract.GetDenominator();
-//    return stream;
-//}
+std::istream& operator >>(std::istream &stream, Fraction &fract){
+    stream >> fract.counter >> fract.denominator;
+    return stream;
+}
