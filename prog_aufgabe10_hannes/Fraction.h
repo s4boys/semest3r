@@ -20,6 +20,7 @@ public:
     bool operator==(const Fraction other) const;
     operator double() const;
     friend ostream& operator <<(ostream &stream, const Fraction &fract);
+    Fraction sternBrocot(double valie, int maxdenom);
 //    friend istream& operator >>(istream &stream, Fraction &fract);
     int GetCounter() const { return counter; }
     int GetDenominator() const { return denominator; }
