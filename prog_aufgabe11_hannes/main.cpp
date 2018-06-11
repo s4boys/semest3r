@@ -13,7 +13,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <pthread.h>
 #include "Matrix.h"
 
 using namespace std;
@@ -33,10 +32,6 @@ int main(int argc, char** argv) {
     m2.data(0, 3) = 4.0;
     Matrix m3 = m1 * m2;
     Matrix m4 = m1 + m1;
-    pthread_t thread1;
-    ThreadData tArguments = {52};
-    int pthread_create(&thread1, NULL, (void *) &Matrix::thread_function(), &tArguments);
-    
     cout << "m1" << endl;
     m1.print();
     cout << "m2" << endl;

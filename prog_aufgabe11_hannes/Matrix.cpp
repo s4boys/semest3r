@@ -13,7 +13,6 @@
 
 #include "Matrix.h"
 #include <memory.h>
-#include <pthread.h>
 #include <iostream>
 
 using namespace std;
@@ -31,25 +30,39 @@ Matrix::~Matrix() {
     delete [] _data;
 }
 
+void *add_thread(void *arg) {
+    struct ThreadData *data = (struct ThreadData*) arg;
+    for (int i = 0; i < data->columnL; i++) {
+        data->resultReference->data(data->rowL, i) = (data->dataThis[data->columnL * data->rowL + i]) + (data->dataOther[data->columnL * data->rowL + i]);
+    }
+    pthread_exit(NULL);
+}
+
 Matrix Matrix::operator+(const Matrix &other)const {
     if (_rows != other._rows || _columns != other._columns) {
         throw "Illegal Argument Exception";
     }
+    pthread_t threads[_rows];
+
+    ThreadData threadStructs[_rows];
+
     Matrix result(_rows, _columns);
+
     for (int i = 0; i < _rows; i++) {
-        for (int j = 0; j < _columns; j++) {
-            result.data(i, j) = data(i, j) + other.data(i, j);
-        }
+        threadStructs[i].rowL = i;
+        threadStructs[i].columnL = _columns;
+        threadStructs[i].columnR = other._columns;
+        threadStructs[i].dataThis = _data;
+        threadStructs[i].dataOther = other._data;
+        threadStructs[i].resultReference = &result;
+        pthread_create(&threads[i], NULL, &add_thread, (void*) &threadStructs[i]);
     }
     return result;
 }
+//1 0       3 2 1 
+//2 3       6 7 8
+//4 5 
 
-//Matrix Matrix::operator *(const Matrix &other)const
-//{
-//    if ( _columns != other._rows ) {
-//        throw "Illegal Argument Exception";
-//    }
-//    Matrix result(_rows, other._columns);
 //    for (int i = 0; i < _rows; i++) {
 //        for (int j = 0; j < other._columns; j++) {
 //            for (int k = 0; k < _columns; k++) {
@@ -57,29 +70,38 @@ Matrix Matrix::operator+(const Matrix &other)const {
 //            }
 //        }
 //    }
-//    return result;
-//}
 
-void *add_thread(void *arg)
-{
-        printf("This is worker_thread #%ld\n", (long)arg);
-        pthread_exit(NULL);
+void *multiply_thread(void *arg) {
+    struct ThreadData *data = (struct ThreadData*) arg;
+
+    data->resultReference->data(data->rowL, data->columnR) =
+            (data->dataThis[data->rowL * data->rowL + data->columnR]) + (data->dataOther[data->columnL * data->rowL + i]);
+
+    pthread_exit(NULL);
 }
-
 
 Matrix Matrix::operator*(const Matrix &other)const {
     if (_columns != other._rows) {
         throw "Illegal Argument Exception";
     }
-    pthread_t threads[_rows];
+    pthread_t threads[_rows * other._columns];
+
+    ThreadData threadStructs[_rows * other._columns];
+
+    Matrix result(_rows, other._columns);
+
     for (int i = 0; i < _rows; i++) {
-        int ret = pthread_create(&threads[i], NULL, &add_thread, NULL);
-        if (ret != 0) {
-            printf("Error: pthread_create() failed\n");
-            exit(EXIT_FAILURE);
+        for (int j = 0; j < other._columns; j++) {
+            threadStructs[i].rowL = i;
+            threadStructs[i].columnL = j;
+            threadStructs[i].columnR = _columns;
+            threadStructs[i].dataThis = _data;
+            threadStructs[i].dataOther = other._data;
+            threadStructs[i].resultReference = &result;
+            pthread_create(&threads[i], NULL, &add_thread, (void*) &threadStructs[i]);
         }
     }
-    Matrix result(_rows, other._columns);
+
     for (int i = 0; i < _rows; i++) {
         for (int j = 0; j < other._columns; j++) {
             for (int k = 0; k < _columns; k++) {
@@ -88,12 +110,6 @@ Matrix Matrix::operator*(const Matrix &other)const {
         }
     }
     return result;
-}
-
-void * Matrix::thread_function(void * pv) {
-    ThreadData ps = *(ThreadData*) pv;
-    //  return (void*) ope   Matrix::operator *((Matrix *) pv);
-    return ((void *) (ps * this));
 }
 
 void Matrix::print() const {

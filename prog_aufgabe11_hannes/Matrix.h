@@ -20,23 +20,26 @@ public:
     Matrix(const Matrix& other);
     ~Matrix();
     Matrix &operator=(const Matrix &other) = delete;
-    Matrix operator +(const Matrix &other)const;
-    Matrix operator *(const Matrix &other)const;
+    Matrix operator+(const Matrix &other)const;
+    Matrix operator*(const Matrix &other)const;
     void print() const;
+
     double &data(int row, int column) {
-        return _data[row*_columns+column];
+        return _data[row * _columns + column];
     }
+
     const double &data(int row, int column)const {
-        return _data[row*_columns+column];
+        return _data[row * _columns + column];
     }
+
     int rows()const {
         return _rows;
     }
+
     int columns()const {
         return _rows;
     }
-    void * thread_function(void * pv);
-    
+
 private:
     int _rows;
     int _columns;
@@ -44,7 +47,15 @@ private:
 };
 
 struct ThreadData {
-    int row;
+    int rowL;
+    int columnL;
+    int columnR;
+    double *dataThis;
+    double *dataOther;
+    Matrix* resultReference;
+//    ThreadData(int a1, int a2, double *a3, double *a4, Matrix &a5) :
+//    row(a1), column(a2), dataThis(a3), dataOther(a4), resultReference(a5) {}
 };
+
 #endif /* MATRIX_H */
 

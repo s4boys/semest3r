@@ -39,6 +39,7 @@
       <compileType>
         <ccTool>
           <standard>11</standard>
+          <commandLine>-pthread</commandLine>
         </ccTool>
       </compileType>
       <item path="Matrix.cpp" ex="false" tool="1" flavor2="0">
