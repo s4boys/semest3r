@@ -125,7 +125,6 @@ Matrix Matrix::operator*(const Matrix &other)const {
     pthread_join(threads[9], (void**) &k);
     pthread_join(threads[10], (void**) &k);
     pthread_join(threads[11], (void**) &k);
-    pthread_join(threads[12], (void**) &k);
             
 //    for (int i = 0; i < _rows * other._columns; i++) {
 //        pthread_join(threads[i], (void**) &k);
