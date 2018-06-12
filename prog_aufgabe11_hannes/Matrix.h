@@ -47,7 +47,10 @@ private:
 };
 
 struct ThreadData {
+    int currentRow;
+    int currentColumn;
     int rowL;
+    int rowR;
     int columnL;
     int columnR;
     double *dataThis;

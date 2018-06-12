@@ -9,11 +9,11 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=aufgabe_11
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/aufgabe_11
+CND_ARTIFACT_NAME_Debug=prog_aufgabe11_hannes
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/prog_aufgabe11_hannes
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=aufgabe11.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/aufgabe11.tar
+CND_PACKAGE_NAME_Debug=progaufgabe11hannes.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/progaufgabe11hannes.tar
 # Release configuration
 CND_PLATFORM_Release=Cygwin-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
