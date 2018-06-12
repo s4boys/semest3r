@@ -14,8 +14,11 @@
 #include "Matrix.h"
 #include <memory.h>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
+
+pthread_mutex_t mu;
 
 Matrix::Matrix(int rows, int columns) : _rows(rows), _columns(columns) {
     _data = new double[_rows * _columns];
@@ -61,7 +64,6 @@ Matrix Matrix::operator+(const Matrix &other)const {
         threadStructs[i].dataThis = _data;
         threadStructs[i].dataOther = other._data;
         threadStructs[i].resultReference = &result;
-        //        pthread_create(&threads[i], NULL, &add_thread, (void*) &threadStructs[i]);
         pthread_create(&threads[i], &att, &add_thread, (void*) &threadStructs[i]);
     }
     int k;
@@ -74,12 +76,13 @@ Matrix Matrix::operator+(const Matrix &other)const {
 
 void *multiply_thread(void *arg) {
     struct ThreadData *data = (struct ThreadData*) arg;
-
+//    pthread_mutex_lock(&mu);
     for (int k = 0; k < data->columnL; k++) {
         data->resultReference->data(data->currentRow, data->currentColumn) +=
                 (data->dataThis[data->columnL * data->currentRow + k]) *
                 (data->dataOther[k * data->columnR] + data->currentColumn);
     }
+//    pthread_mutex_unlock(&mu);
     pthread_exit(NULL);
 }
 
@@ -97,38 +100,30 @@ Matrix Matrix::operator*(const Matrix &other)const {
 
     Matrix result(_rows, other._columns);
 
+//    pthread_mutex_init(&mu, 0);
+    
+    int counter = 0;
+
     for (int i = 0; i < _rows; i++) {
         for (int j = 0; j < other._columns; j++) {
-            threadStructs[i].currentRow = i;
-            threadStructs[i].rowL = _rows;
-            threadStructs[i].rowR = _columns;
-            threadStructs[i].columnL = _columns;
-            threadStructs[i].columnR = other._columns;
-            threadStructs[i].currentColumn = j;
-            threadStructs[i].dataThis = _data;
-            threadStructs[i].dataOther = other._data;
-            threadStructs[i].resultReference = &result;
-            pthread_create(&threads[i], &att, &multiply_thread, (void*) &threadStructs[i]);
+            threadStructs[counter].currentRow = i;
+            threadStructs[counter].rowL = _rows;
+            threadStructs[counter].rowR = _columns;
+            threadStructs[counter].columnL = _columns;
+            threadStructs[counter].columnR = other._columns;
+            threadStructs[counter].currentColumn = j;
+            threadStructs[counter].dataThis = _data;
+            threadStructs[counter].dataOther = other._data;
+            threadStructs[counter].resultReference = &result;
+            pthread_create(&threads[counter], &att, &multiply_thread, (void*) &threadStructs[counter]);
+            counter++;
         }
     }
     pthread_attr_destroy(&att);
-    int k;
-    pthread_join(threads[0], (void**) &k);
-    pthread_join(threads[1], (void**) &k);
-    pthread_join(threads[2], (void**) &k);
-    pthread_join(threads[3], (void**) &k);
-    pthread_join(threads[4], (void**) &k);
-    pthread_join(threads[5], (void**) &k);
-    pthread_join(threads[6], (void**) &k);
-    pthread_join(threads[7], (void**) &k);
-    pthread_join(threads[8], (void**) &k);
-    pthread_join(threads[9], (void**) &k);
-    pthread_join(threads[10], (void**) &k);
-    pthread_join(threads[11], (void**) &k);
-            
-//    for (int i = 0; i < _rows * other._columns; i++) {
-//        pthread_join(threads[i], (void**) &k);
-//    }
+
+        for (int i = 0; i < _rows * other._columns; i++) {
+            pthread_join(threads[i], NULL);
+        }
 
     return result;
 }
