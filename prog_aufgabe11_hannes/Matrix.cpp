@@ -44,9 +44,9 @@ Matrix Matrix::operator+(const Matrix &other)const {
     }
     pthread_t threads[_rows];
 
-    pthread_attr_t* att;
-    pthread_attr_init(att);
-    pthread_attr_setdetachstate(att, PTHREAD_CREATE_JOINABLE);
+    pthread_attr_t att;
+    pthread_attr_init(&att);
+    pthread_attr_setdetachstate(&att, PTHREAD_CREATE_JOINABLE);
 
     ThreadData threadStructs[_rows];
 
@@ -61,13 +61,14 @@ Matrix Matrix::operator+(const Matrix &other)const {
         threadStructs[i].dataThis = _data;
         threadStructs[i].dataOther = other._data;
         threadStructs[i].resultReference = &result;
-        pthread_create(&threads[i], att, &add_thread, (void*) &threadStructs[i]);
+        //        pthread_create(&threads[i], NULL, &add_thread, (void*) &threadStructs[i]);
+        pthread_create(&threads[i], &att, &add_thread, (void*) &threadStructs[i]);
     }
     int k;
     for (int i = 0; i < _rows; i++) {
         pthread_join(threads[i], (void**) &k);
     }
-    pthread_attr_destroy(att);
+    pthread_attr_destroy(&att);
     return result;
 }
 
@@ -86,9 +87,9 @@ Matrix Matrix::operator*(const Matrix &other)const {
     if (_columns != other._rows) {
         throw "Illegal Argument Exception";
     }
-    pthread_attr_t* att;
-    pthread_attr_init(att);
-    pthread_attr_setdetachstate(att, PTHREAD_CREATE_JOINABLE);
+    pthread_attr_t att;
+    pthread_attr_init(&att);
+    pthread_attr_setdetachstate(&att, PTHREAD_CREATE_JOINABLE);
 
     pthread_t threads[_rows * other._columns];
 
@@ -107,21 +108,30 @@ Matrix Matrix::operator*(const Matrix &other)const {
             threadStructs[i].dataThis = _data;
             threadStructs[i].dataOther = other._data;
             threadStructs[i].resultReference = &result;
-            pthread_create(&threads[i], att, &multiply_thread, (void*) &threadStructs[i]);
+            pthread_create(&threads[i], &att, &multiply_thread, (void*) &threadStructs[i]);
         }
     }
-//    int k;
+    pthread_attr_destroy(&att);
+    int k;
+    pthread_join(threads[0], (void**) &k);
+    pthread_join(threads[1], (void**) &k);
+    pthread_join(threads[2], (void**) &k);
+    pthread_join(threads[3], (void**) &k);
+    pthread_join(threads[4], (void**) &k);
+    pthread_join(threads[5], (void**) &k);
+    pthread_join(threads[6], (void**) &k);
+    pthread_join(threads[7], (void**) &k);
+    pthread_join(threads[8], (void**) &k);
+    pthread_join(threads[9], (void**) &k);
+    pthread_join(threads[10], (void**) &k);
+    pthread_join(threads[11], (void**) &k);
+    pthread_join(threads[12], (void**) &k);
+            
 //    for (int i = 0; i < _rows * other._columns; i++) {
 //        pthread_join(threads[i], (void**) &k);
 //    }
-    pthread_attr_destroy(att);
-    Matrix a(2,2);
-    a.data(0,0) = 1.0;
-    a.data(0,1) = 2.0;
-    a.data(1,0) = 3.0;
-    a.data(1,1) = 4.0;
-    return a;
-//    return result;
+
+    return result;
 }
 
 void Matrix::print() const {

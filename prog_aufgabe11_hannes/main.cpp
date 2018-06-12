@@ -29,9 +29,9 @@ int main(int argc, char** argv) {
     m2.data(0, 0) = 1.0;
     m2.data(0, 1) = 2.0;
     m2.data(0, 2) = 3.0;
-    m2.data(0, 3) = 4.0;
-    Matrix m3 = m1 * m2;
+    m2.data(0, 3) = 4.0;    
     Matrix m4 = m1 + m1;
+    Matrix m3 = m1 * m2;
     cout << "m1" << endl;
     m1.print();
     cout << "m2" << endl;
