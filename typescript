@@ -1,0 +1,236 @@
+mysql> SELECT * FROM Mal[Khlzeit;
++---------------------------+-------------+---------+----------------------------+
+| MName                     | Diaet       | Aufwand | Anlass                     |
++---------------------------+-------------+---------+----------------------------+
+| Lasagne                   | normal      | mittel  | Sonntagsessen              |
+| Maultaschen in der Pfanne | normal      | gering  | Alltag                     |
+| Obstsalat                 | vegan       | mittel  | Fest                       |
+| Paella                    | normal      | mittel  | Sonntagsessen              |
+| Porridge                  | vegetarisch | gering  | Frühstück                  |
+| Pulled Pork               | normal      | groß    | Fest                       |
+| Ratatouille               | vegetarisch | mittel  | Shoutout to my friend Remy |
+| Schokokuchen              | vegetarisch | mittel  | Geburtstag                 |
+| Spaghetti Bolognese       | normal      | gering  | Alltag                     |
++---------------------------+-------------+---------+----------------------------+
+9 rows in set (0,00 sec)
+
+mysql> SELECT * FROM Mahlzeit;
++-----+---------------------------+------------+
+| PID | MName                     | Praeferenz |
++-----+---------------------------+------------+
+|   1 | Maultaschen in der Pfanne | gut        |
+|   1 | Paella                    | neutral    |
+|   1 | Porridge                  | gut        |
+|   1 | Pulled Pork               | neutral    |
+|   1 | Ratatouille               | schlecht   |
+|   1 | Spaghetti Bolognese       | gut        |
+|   2 | Maultaschen in der Pfanne | gut        |
+|   2 | Obstsalat                 | gut        |
+|   2 | Porridge                  | schlecht   |
+|   2 | Pulled Pork               | neutral    |
+|   2 | Ratatouille               | schlecht   |
+|   2 | Schokokuchen              | gut        |
+|   3 | Lasagne                   | schlecht   |
+|   3 | Maultaschen in der Pfanne | gut        |
+|   3 | Obstsalat                 | schlecht   |
+|   3 | Pulled Pork               | neutral    |
+|   3 | Ratatouille               | schlecht   |
+|   4 | Lasagne                   | gut        |
+|   4 | Maultaschen in der Pfanne | gut        |
+|   4 | Paella                    | gut        |
+|   4 | Porridge                  | neutral    |
+|   4 | Pulled Pork               | neutral    |
+|   4 | Ratatouille               | schlecht   |
+|   5 | Maultaschen in der Pfanne | gut        |
+|   5 | Ratatouille               | neutral    |
+|   6 | Maultaschen in der Pfanne | schlecht   |
+|   6 | Ratatouille               | gut        |
++-----+---------------------------+------------+
+27 rows in set (0,00 sec)
+
+mysql> SELECT * FROM isst;
++-----+---------------------------+
+| PID | MName                     |
++-----+---------------------------+
+|   2 | Lasagne                   |
+|   5 | Lasagne                   |
+|   1 | Maultaschen in der Pfanne |
+|   2 | Obstsalat                 |
+|   3 | Obstsalat                 |
+|   4 | Paella                    |
+|   1 | Porridge                  |
+|   4 | Porridge                  |
+|   5 | Porridge                  |
+|   4 | Ratatouille               |
+|   6 | Ratatouille               |
+|   2 | Schokokuchen              |
+|   3 | Schokokuchen              |
+|   6 | Schokokuchen              |
+|   1 | Spaghetti Bolognese       |
++-----+---------------------------+
+15 rows in set (0,00 sec)
+
+mysql> SELECT * FROM kannZubereiten;
++-----+---------+----------+
+| PID | Vorname | Nachname |
++-----+---------+----------+
+|   1 | Hannes  | Dumann   |
+|   2 | Daniel  | Hirsch   |
+|   3 | Felix   | Schick   |
+|   4 | Nico    | Mohr     |
+|   5 | Leopold | Slikk    |
+|   6 | Lisa    | Su       |
++-----+---------+----------+
+6 rows in set (0,00 sec)
+
+mysql> SELECT * FROM Person;
++---------------------+----------------+-------+------------+
+| MName               | ZName          | Menge | Einheit    |
++---------------------+----------------+-------+------------+
+| Lasagne             | Hackfleisch    |   500 | g          |
+| Lasagne             | Knoblauch      |     1 | Stk        |
+| Lasagne             | Lasagneplatten |    10 | Stk        |
+| Lasagne             | Mozzarella     |   125 | g          |
+| Lasagne             | Parmesan       |   100 | g          |
+| Lasagne             | Zwiebel        |     1 | Stk        |
+| Maultaschen         | Ei             |     4 | Stk        |
+| Maultaschen         | Maultaschen    |     4 | Stk        |
+| Maultaschen         | Zwiebel        |   200 | g          |
+| Obstsalat           | Apfel          |     2 | Stk        |
+| Obstsalat           | Banane         |     2 | Stk        |
+| Obstsalat           | Erdbeeren      |   100 | g          |
+| Obstsalat           | Honigmelone    |     1 | Stk        |
+| Obstsalat           | Orange         |     2 | Stk        |
+| Obstsalat           | Orangensaft    |    50 | ml         |
+| Obstsalat           | Trauben        |   100 | g          |
+| Paella              | Chorizowurst   |   100 | g          |
+| Paella              | Haehnchen      |   400 | g          |
+| Paella              | Knoblauch      |     1 | Stk        |
+| Paella              | Olivenoel      |     2 | Esslöffel  |
+| Paella              | Zitrone        |     1 | Stk        |
+| Paella              | Zwiebel        |     1 | Stk        |
+| Porridge            | Apfel          |     1 | Hälfte     |
+| Porridge            | Banane         |     1 | Stk        |
+| Porridge            | Haferflocken   |   150 | g          |
+| Porridge            | Milch          |   150 | ml         |
+| Pulled Pork         | Apfelsaft      |   250 | ml         |
+| Pulled Pork         | Broetchen      |     6 | Stk        |
+| Pulled Pork         | Gemuesebruehe  |   150 | ml         |
+| Pulled Pork         | Schweinenacken |  2500 | g          |
+| Ratatouille         | Aubergine      |   225 | g          |
+| Ratatouille         | Knoblauch      |     2 | Stk        |
+| Ratatouille         | Paprika        |     2 | Stk        |
+| Ratatouille         | Tomate         |   400 | g          |
+| Ratatouille         | Zucchini       |   250 | g          |
+| Ratatouille         | Zwiebel        |     1 | Stk        |
+| Schokokuchen        | Butter         |   200 | g          |
+| Schokokuchen        | Ei             |     3 | Stk        |
+| Schokokuchen        | Kakao          |    80 | g          |
+| Schokokuchen        | Mehl           |   300 | g          |
+| Schokokuchen        | Milch          |   250 | ml         |
+| Schokokuchen        | Schokolade     |   200 | g          |
+| Schokokuchen        | Zucker         |   300 | g          |
+| Spaghetti Bolognese | Hackfleisch    |   500 | g          |
+| Spaghetti Bolognese | Spaghetti      |   500 | g          |
+| Spaghetti Bolognese | Tomatensauce   |   700 | ml         |
++---------------------+----------------+-------+------------+
+46 rows in set (0,00 sec)
+
+mysql> SELECT * FROM VerwendungIn;
++----------------+-----------------+----------------+-------------+----------------------+
+| ZName          | KalorienPro100g | EiweissPro100g | FettPro100g | KohlenhydratePro100g |
++----------------+-----------------+----------------+-------------+----------------------+
+| Apfel          |              52 |              0 |           0 |                   14 |
+| Apfelsaft      |              46 |              0 |          11 |                    0 |
+| Aubergine      |              17 |              1 |           0 |                    2 |
+| Banane         |              89 |              1 |           0 |                   23 |
+| Broetchen      |             310 |             11 |           6 |                   52 |
+| Butter         |             741 |              1 |          83 |                    1 |
+| Chorizowurst   |             455 |             24 |          38 |                    2 |
+| Ei             |             154 |             13 |          11 |                    1 |
+| Eis            |             188 |              7 |           9 |                   20 |
+| Erdbeeren      |              33 |              1 |           0 |                    8 |
+| Gemuesebruehe  |             267 |             17 |          14 |                   18 |
+| Hackfleisch    |             241 |             24 |          15 |                    0 |
+| Haehnchen      |             109 |             23 |           0 |                    1 |
+| Haferflocken   |             379 |             13 |           7 |                   68 |
+| Honigmelone    |              34 |              1 |           0 |                    8 |
+| Huhn           |             102 |             24 |           1 |                    0 |
+| Jasmintee      |               1 |              0 |           0 |                    0 |
+| Kakao          |             342 |             20 |          25 |                   11 |
+| Knoblauch      |             142 |              6 |           0 |                   28 |
+| Käse           |             300 |             25 |          22 |                    0 |
+| Lasagneplatten |             379 |             13 |           7 |                   68 |
+| Linsen         |             309 |             24 |           1 |                   49 |
+| Maultaschen    |             216 |              9 |           9 |                   24 |
+| Mehl           |             337 |             10 |           1 |                   71 |
+| Milch          |              42 |              3 |           1 |                    5 |
+| Mozzarella     |             280 |             28 |          17 |                    3 |
+| Olivenoel      |             884 |              0 |           0 |                  100 |
+| Orange         |              47 |              1 |           0 |                   12 |
+| Orangensaft    |             112 |              2 |           0 |                   26 |
+| Paprika        |              40 |              2 |           0 |                    9 |
+| Parmesan       |             431 |             38 |          29 |                    4 |
+| Quark          |              75 |             14 |           0 |                    4 |
+| Sahne          |             288 |              3 |          30 |                    3 |
+| Schokolade     |             546 |              5 |          31 |                   61 |
+| Schweinenacken |             269 |             23 |           0 |                   19 |
+| Spaghetti      |             158 |              6 |           1 |                   31 |
+| Tomate         |              17 |              1 |           0 |                    3 |
+| Tomatensauce   |              29 |              1 |           0 |                    7 |
+| Trauben        |              69 |              1 |           0 |                   18 |
+| Zitrone        |              29 |              1 |           0 |                    9 |
+| Zucchini       |              19 |              2 |           0 |                    2 |
+| Zucker         |             405 |              0 |           0 |                  100 |
+| Zwiebel        |              40 |              1 |           0 |                    9 |
++----------------+-----------------+----------------+-------------+----------------------+
+43 rows in set (0,00 sec)
+
+mysql> SELECT * FROM Zutat;
++------------+-----------------------------------------+----------------+----------------+-------+---------+-------+
+| Datum      | Adresse                                 | SName          | ZName          | Menge | Einheit | Preis |
++------------+-----------------------------------------+----------------+----------------+-------+---------+-------+
+| 2018-05-03 | Kirchheimer Str. 71, 70619 Stuttgart    | Naturgut       | Jasmintee      |     1 | Packung |   2.5 |
+| 2018-05-03 | Kirchheimer Str. 71, 70619 Stuttgart    | Naturgut       | Linsen         |   500 | g       |  2.99 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Apfel          |    12 | Stk     |   2.5 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Apfelsaft      |     1 | l       |   1.2 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Butter         |   500 | g       |   2.3 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Ei             |    10 | Stk     |   2.5 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Erdbeeren      |   500 | g       |   2.6 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Hackfleisch    |   400 | g       |     3 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Huhn           |   400 | g       |   2.9 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Mehl           |   500 | g       |   0.8 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Milch          |     6 | l       |   4.2 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Orange         |     6 | Stk     |   2.1 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Spaghetti      |  1000 | g       |   1.5 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Tomatensauce   |   500 | ml      |  0.39 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Zucker         |   500 | g       |   0.7 |
+| 2018-05-28 | Schemppstraße 83, 70619 Stuttgart       | Netto          | Zwiebel        |     8 | Stk     |   1.3 |
+| 2018-06-01 | Kirchheimer Str. 65, 70619 Stuttgart    | Edeka          | Olivenoel      |     1 | L       |   4.5 |
+| 2018-06-01 | Schemppstraße 81, 70619 Stuttgart       | Edeka          | Banane         |   400 | g       |   2.3 |
+| 2018-06-01 | Schemppstraße 81, 70619 Stuttgart       | Edeka          | Broetchen      |     8 | Stk     |   5.1 |
+| 2018-06-02 | Edith-Stein-Straße 5, 73760 Ostfildern  | Lidl           | Käse           |   400 | g       |   1.7 |
+| 2018-06-02 | Edith-Stein-Straße 5, 73760 Ostfildern  | Lidl           | Quark          |     4 | Stk     |   3.2 |
+| 2018-06-02 | Edith-Stein-Straße 5, 73760 Ostfildern  | Lidl           | Sahne          |   400 | ml      |   1.2 |
+| 2018-06-09 | Kronprinzstraße 6, 70173 Stuttgart      | Feinkost Böhm  | Aubergine      |     1 | Stk     |   4.1 |
+| 2018-06-09 | Kronprinzstraße 6, 70173 Stuttgart      | Feinkost Böhm  | Kakao          |  1000 | g       |  23.9 |
+| 2018-06-09 | Kronprinzstraße 6, 70173 Stuttgart      | Feinkost Böhm  | Schweinenacken |  2500 | g       |  14.9 |
+| 2018-06-15 | Bonhoefferstraße 1, 73760 Ostfildern    | Real           | Eis            |  1000 | g       |  2.75 |
+| 2018-06-15 | Bonhoefferstraße 1, 73760 Ostfildern    | Real           | Huhn           |   400 | g       |   3.1 |
++------------+-----------------------------------------+----------------+----------------+-------+---------+-------+
+27 rows in set (0,00 sec)
+
+mysql> SELECT * FROM Einkauf;
++----------------+-----------------------------------------+-------------+
+| SName          | Adresse                                 | Preisklasse |
++----------------+-----------------------------------------+-------------+
+| Edeka          | Kirchheimer Str. 65, 70619 Stuttgart    | mittel      |
+| Edeka          | Schemppstraße 81, 70619 Stuttgart       | mittel      |
+| Feinkost Böhm  | Kronprinzstraße 6, 70173 Stuttgart      | teuer       |
+| Lidl           | Edith-Stein-Straße 5, 73760 Ostfildern  | billig      |
+| Naturgut       | Kirchheimer Str. 71, 70619 Stuttgart    | teuer       |
+| Netto          | Schemppstraße 83, 70619 Stuttgart       | billig      |
+| Real           | Bonhoefferstraße 1, 73760 Ostfildern    | billig      |
++----------------+-----------------------------------------+-------------+
+7 rows in set (0,00 sec)
+
